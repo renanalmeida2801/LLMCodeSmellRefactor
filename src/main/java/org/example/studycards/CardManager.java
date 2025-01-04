@@ -22,12 +22,7 @@ public class CardManager {
         return instance;
     }
 
-    public String formatCard(Integer id) {
-        Card card = this.getCard(id);
-        return "[id: " + id + "] " + "Question: " + card.getQuestion() + " Answer: " + card.getAnswer();
-    }
-
-    public Map<Integer, Card> getCardsMap(){
+    public Map<Integer, Card> getCardsMap() {
         return cards;
     }
 
@@ -35,7 +30,7 @@ public class CardManager {
         return new ArrayList<Card>(cards.values());
     }
 
-    public List<Card> getCards(List<Integer> ids){
+    public List<Card> getCards(List<Integer> ids) {
         List<Card> responseCards = new ArrayList<>();
         for (Integer id : ids) {
             Card card = cards.get(id);
@@ -51,7 +46,7 @@ public class CardManager {
     }
 
     public Integer addCard(String question, String answer) {
-        if(validateCard(question, answer)) {
+        if (validateCard(question, answer)) {
             throw new IllegalArgumentException("Invalid question or answer");
         }
         Card card = new Card(question, answer);
@@ -66,7 +61,7 @@ public class CardManager {
     }
 
     public void updateCard(Integer id, String question, String answer) {
-        if(validateCard(question, answer)) {
+        if (validateCard(question, answer)) {
             throw new IllegalArgumentException("Invalid question or answer");
         }
         Card card = cards.get(id);
@@ -77,12 +72,12 @@ public class CardManager {
         return question == null || question.isEmpty() || answer == null || answer.isEmpty();
     }
 
-    public List<String> searchInCards(String search){
+    public List<String> searchInCards(String search) {
         List<String> responseCards = new ArrayList<>();
         for (int id : cards.keySet()) {
             Card card = cards.get(id);
-            if(card.getQuestion().contains(search) || card.getAnswer().contains(search)){
-                responseCards.add(formatCard(id));
+            if (card.getQuestion().contains(search) || card.getAnswer().contains(search)) {
+                responseCards.add(card.format()); // Using the moved method format
             }
         }
         return responseCards;

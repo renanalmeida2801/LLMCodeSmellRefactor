@@ -16,8 +16,9 @@ public class Box {
     public String toString() {
         CardManager manager = CardManager.getCardManager();
         StringBuilder response = new StringBuilder();
-        for (Integer card : cards) {
-            response.append(manager.formatCard(card)).append(System.lineSeparator());
+        for (Integer cardId : cards) {
+            Card card = manager.getCard(cardId); // Get the Card object
+            response.append(card.format()).append(System.lineSeparator()); // Call format on the Card object
         }
         return response.toString();
     }

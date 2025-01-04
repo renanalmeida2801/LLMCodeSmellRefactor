@@ -44,7 +44,7 @@ public class StudyCardsController {
         StringBuilder response = new StringBuilder();
         for(Integer key : keys){
             Card card = cards.get(key);
-            response.append("[id: ").append(key).append("] Question: ").append(card.getQuestion()).append(", Answer: ").append(card.getAnswer()).append("\n");
+            response.append("[id: ").append(key).append("] Question: ").append(card.format()).append("\n"); // Call format on the Card object
         }
         System.out.println(response.toString().isEmpty() ? "No cards" : response.toString());
     }
@@ -66,7 +66,8 @@ public class StudyCardsController {
     public void handleRandomFlashCard() {
         System.out.println("Random flash card:");
         Integer id = flashCard.randomFlashCard();
-        System.out.println(manager.formatCard(id));
+        Card card = manager.getCard(id);
+        System.out.println(card.format());
     }
 
     public void handleInsertCardInBox(){
