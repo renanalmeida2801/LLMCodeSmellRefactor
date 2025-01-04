@@ -13,49 +13,60 @@ public class SearchLog {
     private String logName;
 
     public SearchLog(String logName) {
+        this.logName = logName;
+        reset();
+    }
+
+    private void reset() {
         searchHistory = new ArrayList<>();
         searchCount = new HashMap<>();
-        this.logName = logName;
         numUsages = 0;
         isLocked = false;
     }
-    public void addSearchHistory(String searchHistory) {
-        this.searchHistory.add(searchHistory);
+
+    public void addSearch(String query) {
+        if (isLocked) {
+            throw new IllegalStateException("SearchLog is locked.");
+        }
+
+        searchHistory.add(query);
+        searchCount.put(query, searchCount.getOrDefault(query, 0) + 1);
+        numUsages++;
     }
+
     public List<String> getSearchHistory() {
-        return searchHistory;
+        return new ArrayList<>(searchHistory); // Return a copy to prevent modifications
     }
-    public void setSearchHistory(List<String> searchHistory) {
-        this.searchHistory = searchHistory;
-    }
+
     public Map<String, Integer> getSearchCount() {
-        return searchCount;
-    }
-    public void setSearchCount(Map<String, Integer> searchCount) {
-        this.searchCount = searchCount;
+        return new HashMap<>(searchCount); // Return a copy to prevent modifications
     }
 
     public boolean isLocked() {
         return isLocked;
     }
 
-    public void setLocked(boolean locked) {
-        isLocked = locked;
+    public void lock() {
+        isLocked = true;
+    }
+
+    public void unlock() {
+        isLocked = false;
     }
 
     public Integer getNumUsages() {
         return numUsages;
     }
 
-    public void setNumUsages(Integer numUsages) {
-        this.numUsages = numUsages;
-    }
-
     public String getLogName() {
         return logName;
     }
 
-    public void setLogName(String logName) {
-        this.logName = logName;
+    public void addSearchHistory(String query) {
+        searchHistory.add(query);
+    }
+
+    public void setNumUsages(int numUsages) {
+        this.numUsages = numUsages;
     }
 }
