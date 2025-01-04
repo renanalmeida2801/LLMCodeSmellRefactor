@@ -1,5 +1,8 @@
 package org.example.studymaterial;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public abstract class Reference {
     private String title;
     private String description;
@@ -9,16 +12,21 @@ public abstract class Reference {
     private boolean isDownloadable;
     private int rating;
     private String language;
-    private int viewCount;
-    private int downloadCount;
-    private int shareCount;
+    private ReferenceStatistics statistics;
 
-    public void setTitle(String title) {
+    public Reference() {
         this.title = title;
+        this.description = description;
+        this.link = link;
+        this.statistics = new ReferenceStatistics();
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setDescription(String description) {
@@ -77,27 +85,79 @@ public abstract class Reference {
         this.language = language;
     }
 
+    public ReferenceStatistics getStatistics() {
+        return statistics;
+    }
+
+    // Delegate view count updates to ReferenceStatistics
+    public void incrementViewCount() {
+        statistics.incrementViewCount();
+    }
+
+    // Delegate download count updates to ReferenceStatistics
+    public void incrementDownloadCount() {
+        statistics.incrementDownloadCount();
+    }
+
+    // Delegate share count updates to ReferenceStatistics
+    public void incrementShareCount() {
+        statistics.incrementShareCount();
+    }
+
+    // High-level methods for derived behavior (examples)
+    public boolean isHighlyRated() {
+        return getRating() >= 4; // Customize rating threshold as needed
+    }
+
+    public double getPopularityRatio() {
+        int totalActions = statistics.getViewCount() + statistics.getDownloadCount() + statistics.getShareCount();
+        return totalActions > 0 ? (double) totalActions / 100 : 0.0; // Adjust divisor as needed
+    }
+
+    // Methods preserved for compatibility with AudioReference
+    public int getViewCount() {
+        return statistics.getViewCount();
+    }
+
+    public void setViewCount(int viewCount) {
+        statistics.viewCount = viewCount;
+    }
+
+    public int getShareCount() {
+        return statistics.getShareCount();
+    }
+
+    public void setShareCount(int shareCount) {
+        statistics.shareCount = shareCount;
+    }
+}
+
+class ReferenceStatistics {
+    public int viewCount;
+    public int shareCount;
+    private int downloadCount;
+
+    public void incrementViewCount() {
+        viewCount++;
+    }
+
     public int getViewCount() {
         return viewCount;
     }
 
-    public void setViewCount(int viewCount) {
-        this.viewCount = viewCount;
+    public void incrementDownloadCount() {
+        downloadCount++;
     }
 
     public int getDownloadCount() {
         return downloadCount;
     }
 
-    public void setDownloadCount(int downloadCount) {
-        this.downloadCount = downloadCount;
+    public void incrementShareCount() {
+        shareCount++;
     }
 
     public int getShareCount() {
         return shareCount;
-    }
-
-    public void setShareCount(int shareCount) {
-        this.shareCount = shareCount;
     }
 }
