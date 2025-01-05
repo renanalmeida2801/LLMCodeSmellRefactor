@@ -56,7 +56,7 @@ public class StudyRegistryController {
         System.out.println("Type the following info: Integer id, Integer priority " +
                 "Integer practicedDays, int day, int month, int year, String name, String title, String description, " +
                 "String topic, String objectiveInOneLine, String objectiveFullDescription, String motivation, " +
-                "Double duration, boolean isActive  \n");
+                "Double duration, boolean isActive \n");
         objective.handleSetObjective(Integer.parseInt(getInput()), Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),
                 Integer.parseInt(getInput()), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
                 Double.parseDouble(getInput()), Boolean.parseBoolean(getInput()));
@@ -78,7 +78,7 @@ public class StudyRegistryController {
         System.out.println("Type the following info: name \n");
         String name = getInput();
         StudyObjective studyObjective = getStudyObjectiveInfo();
-        StudyPlan plan = new StudyPlan(name, studyObjective,  new ArrayList<>());
+        StudyPlan plan = new StudyPlan(name, studyObjective, new ArrayList<>());
         studyTaskManager.addRegistry(plan);
         return plan;
     }
@@ -87,7 +87,7 @@ public class StudyRegistryController {
         handleMethodHeader("(Study Plan Edit)");
         System.out.println("Type the following info: String firstStep, String resetStudyMechanism, String consistentStep, " +
                 "String seasonalSteps, String basicSteps, String mainObjectiveTitle, String mainGoalTitle, String mainMaterialTopic, " +
-                "String mainTask, @NotNull  Integer numberOfSteps, boolean isImportant. " +
+                "String mainTask, @NotNull Integer numberOfSteps, boolean isImportant. " +
                 "The Date to start is today, the date to end is x days from now, type the quantity of days\n");
         LocalDateTime createdAT = LocalDateTime.now();
         studyPlan.assignSteps(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
@@ -109,14 +109,30 @@ public class StudyRegistryController {
         studyTaskManager.addRegistry(goal);
     }
 
-    private void editAudio(AudioReference audioReference){
+    private void editAudio(AudioReference audioReference) {
         handleMethodHeader("(Audio Edit)");
-        System.out.println("Type the following info:  AudioReference. AudioQuality audioQuality, boolean isDownloadable, " +
-                "String title, String description, String link, String accessRights, String license, String language, int rating, " +
-                "int viewCount, int shareCount \n");
-        AudioReference.AudioQuality quality =AudioReference.audioQualityAdapter(getInput());
-        audioReference.editAudio(quality, Boolean.parseBoolean(getInput()), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(), Integer.parseInt(getInput()), Integer.parseInt(getInput()), Integer.parseInt(getInput()));
+        System.out.println("Please enter the following information separated by commas:\n" +
+                "AudioQuality, isDownloadable, title, description, link, accessRights, license, language, rating, viewCount, shareCount");
+
+        String input = getInput();
+        String[] inputArray = input.split(",");
+
+        AudioReference.AudioQuality audioQuality = AudioReference.audioQualityAdapter(inputArray[0].trim());
+        boolean isDownloadable = Boolean.parseBoolean(inputArray[1].trim());
+
+        AudioReference.AudioReferenceData audioData = new AudioReference.AudioReferenceData(
+                inputArray[2].trim(), // title
+                inputArray[3].trim(), // description
+                inputArray[4].trim(), // link
+                inputArray[5].trim(), // accessRights
+                inputArray[6].trim(), // license
+                inputArray[7].trim(), // language
+                Integer.parseInt(inputArray[8].trim()), // rating
+                Integer.parseInt(inputArray[9].trim()), // viewCount
+                Integer.parseInt(inputArray[10].trim()) // shareCount
+        );
+
+        audioReference.editAudio(audioQuality, isDownloadable, audioData);
     }
 
     private AudioReference addAudioReference(){
@@ -137,7 +153,7 @@ public class StudyRegistryController {
 
     private TextReference addTextReference(){
         handleMethodHeader("(Text Reference Creation)");
-        System.out.println("Type the following info:  String title, String language, int wordCount, String format, String accessRights \n");
+        System.out.println("Type the following info: String title, String language, int wordCount, String format, String accessRights \n");
         return new TextReference(getInput(), getInput(), Integer.parseInt(getInput()), getInput(),
                 getInput());
     }
@@ -202,14 +218,14 @@ public class StudyRegistryController {
 
     public static void controllerOptions(){
         System.out.println("""
-                0 - return
-                1 - add study task
-                2 - add study goal
-                3 - add study material (audio, video, text)
-                4 - add study objective
-                5 - add study plan
-                6 - set up week
-                7 - get week responsibilities
-               """);
+0 - return
+1 - add study task
+2 - add study goal
+3 - add study material (audio, video, text)
+4 - add study objective
+5 - add study plan
+6 - set up week
+7 - get week responsibilities
+""");
     }
 }

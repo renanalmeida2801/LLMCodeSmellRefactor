@@ -1,37 +1,21 @@
 {
   "formatVersion": 0,
   "pmdVersion": "7.9.0",
-  "timestamp": "2025-01-04T19:57:34.939-03:00",
+  "timestamp": "2025-01-04T22:24:08.563-03:00",
   "files": [
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studycards\\LeitnerSystem.java",
-      "violations": [
-        {
-          "beginline": 44,
-          "begincolumn": 19,
-          "endline": 44,
-          "endcolumn": 32,
-          "description": "The method \u0027getRandomCard(List\u003cBox\u003e)\u0027 has a NCSS line count of 17.",
-          "rule": "NcssCount",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
-        }
-      ]
-    },
     {
       "filename": ".\\src\\main\\java\\org\\example\\studymaterial\\AudioReference.java",
       "violations": [
         {
-          "beginline": 34,
-          "begincolumn": 26,
-          "endline": 34,
-          "endcolumn": 222,
-          "description": "Avoid long parameter lists.",
-          "rule": "ExcessiveParameterList",
+          "beginline": 63,
+          "begincolumn": 19,
+          "endline": 63,
+          "endcolumn": 24,
+          "description": "The class \u0027AudioReferenceData\u0027 is suspected to be a Data Class (WOC\u003d0.000%, NOPA\u003d0, NOAM\u003d18, WMC\u003d19)",
+          "rule": "DataClass",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
         }
       ]
     },
