@@ -55,6 +55,10 @@ public class StudyCardsController {
         manager.removeCard(id);
     }
 
+        public String getRandomCardFromBox() {
+        return leitnerSystem.getRandomCardFromBox();
+    }
+
     public void handleCreateCard(){
         System.out.println("Type the question: \n");
         String question = getInput();
@@ -114,17 +118,9 @@ public class StudyCardsController {
         }
     }
 
-    public String getRandomCardFromBox() {
-        String response = "";
-        response += leitnerSystem.getMethodName();
-        List<Box> boxes = leitnerSystem.getBoxes();
-        response += leitnerSystem.getRandomCard(boxes);
-        return response;
-    }
-
     public void handleGetRandomCardFromBox() {
         try{
-            String response = getRandomCardFromBox();
+            String response = leitnerSystem.getRandomCardFromBox();
             System.out.println(response);
         }catch (Exception e){
             System.out.println(e.getMessage());

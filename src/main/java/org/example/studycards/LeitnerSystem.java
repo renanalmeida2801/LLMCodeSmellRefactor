@@ -46,9 +46,18 @@ public class LeitnerSystem extends StudyMethod {
         if (!isValidBoxList(otherBoxes)) {
             return null;
         }
-
         return retrieveRandomCardFromAllBoxes(otherBoxes);
     }
+    public String getRandomCardFromBox() {
+        String response = "";
+        response += this.methodName;
+        List<Box> boxes = this.boxes;
+        response += getRandomCard(boxes);
+        Box allBoxes = combineBoxes(boxes);
+
+        return response;
+      }
+
 
     private boolean isValidBoxList(List<Box> otherBoxes) {
         return otherBoxes != null && !otherBoxes.isEmpty();
