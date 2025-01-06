@@ -94,13 +94,6 @@ public class StudyRegistryController {
         studyPlan.assignSteps(details);
     }
 
-//    // Helper method to get user input with a prompt
-//    private String getUserInput(String prompt) {
-//        System.out.print(prompt);
-//        Scanner scanner = new Scanner(System.in);
-//        return scanner.nextLine();
-//    }
-
     private StudyGoal getStudyGoalInfo(){
         handleMethodHeader("(Study Goal Creation)");
         System.out.println("Type the following info: name \n");
@@ -197,8 +190,20 @@ public class StudyRegistryController {
         System.out.println("(Study Task Manager Week Set Up) Type the following info: String planName, String objectiveTitle, " +
                 "String objectiveDescription, String materialTopic, String materialFormat, String goal, String reminderTitle, " +
                 "String reminderDescription, String mainTaskTitle, String mainHabit, String mainCardStudy");
-        studyTaskManager.setUpWeek(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(), getInput());
+        StudyTaskManager.WeekSetup weekSetup = new StudyTaskManager.WeekSetup(
+                getInput(),
+                getInput(),
+                getInput(),
+                getInput(),
+                getInput(),
+                getInput(),
+                getInput(),
+                getInput(),
+                getInput(),
+                getInput(),
+                getInput()
+        );
+        studyTaskManager.setUpWeek(weekSetup);
     }
 
     private void handleSetUpWeek(){

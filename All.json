@@ -1,7 +1,7 @@
 {
   "formatVersion": 0,
   "pmdVersion": "7.9.0",
-  "timestamp": "2025-01-05T22:24:57.759-03:00",
+  "timestamp": "2025-01-05T22:48:57.666-03:00",
   "files": [
     {
       "filename": ".\\src\\main\\java\\org\\example\\studymaterial\\AudioReference.java",
@@ -27,22 +27,6 @@
           "begincolumn": 35,
           "endline": 85,
           "endcolumn": 293,
-          "description": "Avoid long parameter lists.",
-          "rule": "ExcessiveParameterList",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
-        }
-      ]
-    },
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\StudyTaskManager.java",
-      "violations": [
-        {
-          "beginline": 30,
-          "begincolumn": 26,
-          "endline": 32,
-          "endcolumn": 88,
           "description": "Avoid long parameter lists.",
           "rule": "ExcessiveParameterList",
           "ruleset": "Design",
