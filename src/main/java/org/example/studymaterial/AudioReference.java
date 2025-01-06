@@ -36,9 +36,9 @@ public class AudioReference extends Reference {
     public void editAudio(AudioQuality audioQuality, boolean isDownloadable, AudioReferenceData data) {
         this.setAudioQuality(audioQuality);
         this.setDownloadable(isDownloadable);
-        setTitleAndDescription(data.getTitle(), data.getDescription());
-        setLinkAndAccessRights(data.getLink(), data.getAccessRights());
-        setMediaDetails(data.getLicense(), data.getLanguage(), data.getRating(), data.getViewCount(), data.getShareCount());
+        setTitleAndDescription(data.title(), data.description());
+        setLinkAndAccessRights(data.link(), data.accessRights());
+        setMediaDetails(data.license(), data.language(), data.rating(), data.viewCount(), data.shareCount());
     }
 
     private void setTitleAndDescription(String title, String description) {
@@ -59,102 +59,17 @@ public class AudioReference extends Reference {
         this.setShareCount(shareCount);
     }
 
-    // Helper class to encapsulate audio data
-    public static class AudioReferenceData {
-        private String title;
-        private String description;
-        private String link;
-        private String accessRights;
-        private String license;
-        private String language;
-        private int rating;
-        private int viewCount;
-        private int shareCount;
-
-        public AudioReferenceData(String title, String description, String link, String accessRights, String license, String language, int rating, int viewCount, int shareCount) {
-            this.title = title;
-            this.description = description;
-            this.link = link;
-            this.accessRights = accessRights;
-            this.license = license;
-            this.language = language;
-            this.rating = rating;
-            this.viewCount = viewCount;
-            this.shareCount = shareCount;
-        }
-
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        public String getLink() {
-            return link;
-        }
-
-        public void setLink(String link) {
-            this.link = link;
-        }
-
-        public String getAccessRights() {
-            return accessRights;
-        }
-
-        public void setAccessRights(String accessRights) {
-            this.accessRights = accessRights;
-        }
-
-        public String getLicense() {
-            return license;
-        }
-
-        public void setLicense(String license) {
-            this.license = license;
-        }
-
-        public String getLanguage() {
-            return language;
-        }
-
-        public void setLanguage(String language) {
-            this.language = language;
-        }
-
-        public int getRating() {
-            return rating;
-        }
-
-        public void setRating(int rating) {
-            this.rating = rating;
-        }
-
-        public int getViewCount() {
-            return viewCount;
-        }
-
-        public void setViewCount(int viewCount) {
-            this.viewCount = viewCount;
-        }
-
-        public int getShareCount() {
-            return shareCount;
-        }
-
-        public void setShareCount(int shareCount) {
-            this.shareCount = shareCount;
-        }
+    public record AudioReferenceData(
+            String title,
+            String description,
+            String link,
+            String accessRights,
+            String license,
+            String language,
+            int rating,
+            int viewCount,
+            int shareCount
+    ) {
     }
 
     public void editAudioAdapter(List<String> properties, List<Integer> intProperties, AudioQuality audioQuality, boolean isDownloadable) {

@@ -1,41 +1,8 @@
 {
   "formatVersion": 0,
   "pmdVersion": "7.9.0",
-  "timestamp": "2025-01-05T22:48:57.666-03:00",
-  "files": [
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studymaterial\\AudioReference.java",
-      "violations": [
-        {
-          "beginline": 63,
-          "begincolumn": 19,
-          "endline": 63,
-          "endcolumn": 24,
-          "description": "The class \u0027AudioReferenceData\u0027 is suspected to be a Data Class (WOC\u003d0.000%, NOPA\u003d0, NOAM\u003d18, WMC\u003d19)",
-          "rule": "DataClass",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
-        }
-      ]
-    },
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\StudyObjective.java",
-      "violations": [
-        {
-          "beginline": 85,
-          "begincolumn": 35,
-          "endline": 85,
-          "endcolumn": 293,
-          "description": "Avoid long parameter lists.",
-          "rule": "ExcessiveParameterList",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
-        }
-      ]
-    }
-  ],
+  "timestamp": "2025-01-05T23:14:27.014-03:00",
+  "files": [],
   "suppressedViolations": [],
   "processingErrors": [],
   "configurationErrors": []

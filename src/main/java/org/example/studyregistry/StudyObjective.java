@@ -12,6 +12,7 @@ public class StudyObjective extends Registry{
     private Double duration;
     private String objectiveInOneLine;
     private String objectiveFullDescription;
+    private static StudyObjective studyObjective;
 
     public String getTitle() {
         return title;
@@ -59,6 +60,12 @@ public class StudyObjective extends Registry{
         this.description = description;
         this.name = title;
     }
+    public static StudyObjective getStudyObjective(){
+        if(studyObjective == null){
+            studyObjective = new StudyObjective("title", "description");
+        }
+        return studyObjective;
+    }
 
     public void handleSetRegistry(Integer id, String name, Integer priority, boolean isActive){
         this.id=id;
@@ -82,17 +89,66 @@ public class StudyObjective extends Registry{
         this.startDate= LocalDateTime.of(year, month, day, 0, 0);
     }
 
-    public void handleSetObjective(Integer id, Integer priority, Integer practicedDays, int day, int month, int year, String name, String title, String description, String topic, String objectiveInOneLine, String objectiveFullDescription, String motivation, Double duration, boolean isActive){
-        handleSetRegistry(id, name, priority, isActive);
-        handleSetTextualInfo(title, description, topic, objectiveInOneLine, objectiveFullDescription, motivation);
-        handleSetTime(practicedDays, day, month, year, duration);
+    public record Objective(
+            Integer id,
+            Integer priority,
+            Integer practicedDays,
+            int day,
+            int month,
+            int year,
+            String name,
+            String title,
+            String description,
+            String topic,
+            String objectiveInOneLine,
+            String objectiveFullDescription,
+            String motivation,
+            Double duration,
+            boolean isActive
+    ) {
+    }
+    public void handleSetObjective(Objective objective) {
+        handleSetRegistry(objective.id(), objective.name(), objective.priority(), objective.isActive());
+        handleSetTextualInfo(
+                objective.title(),
+                objective.description(),
+                objective.topic(),
+                objective.objectiveInOneLine(),
+                objective.objectiveFullDescription(),
+                objective.motivation()
+        );
+        handleSetTime(
+                objective.practicedDays(),
+                objective.day(),
+                objective.month(),
+                objective.year(),
+                objective.duration()
+        );
     }
 
-    public int handleSetObjectiveAdapter(List<Integer> intProperties, List<String> stringProperties, Double duration, boolean isActive){
-        handleSetObjective(intProperties.get(0), intProperties.get(1), intProperties.get(2), intProperties.get(3), intProperties.get(4), intProperties.get(5),
-                stringProperties.get(0), stringProperties.get(1), stringProperties.get(2), stringProperties.get(3), stringProperties.get(4), stringProperties.get(5), stringProperties.get(6), duration, isActive);
-        return intProperties.get(0);
+    public int handleSetObjectiveAdapter(List<Integer> intProperties, List<String> stringProperties, Double duration, boolean isActive) {
+        Objective objective = new Objective(
+                intProperties.get(0), // id
+                intProperties.get(1), // priority
+                intProperties.get(2), // practicedDays
+                intProperties.get(3), // day
+                intProperties.get(4), // month
+                intProperties.get(5), // year
+                stringProperties.get(0), // name
+                stringProperties.get(1), // title
+                stringProperties.get(2), // description
+                stringProperties.get(3), // topic
+                stringProperties.get(4), // objectiveInOneLine
+                stringProperties.get(5), // objectiveFullDescription
+                stringProperties.get(6), // motivation
+                duration,
+                isActive
+        );
+
+        handleSetObjective(objective);
+        return objective.id();
     }
+
 
     public String getDescription() {
         return description;

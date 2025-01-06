@@ -15,6 +15,7 @@ import static org.example.controllers.MainController.validateInput;
 public class StudyRegistryController {
     StudyTaskManager studyTaskManager = StudyTaskManager.getStudyTaskManager();
     StudyMaterial studyMaterial = StudyMaterial.getStudyMaterial();
+    StudyObjective studyObjective = StudyObjective.getStudyObjective();
     private Map<String, Runnable> actions = new HashMap<>();
 
     public StudyRegistryController() {
@@ -54,10 +55,27 @@ public class StudyRegistryController {
                 "Integer practicedDays, int day, int month, int year, String name, String title, String description, " +
                 "String topic, String objectiveInOneLine, String objectiveFullDescription, String motivation, " +
                 "Double duration, boolean isActive \n");
-        objective.handleSetObjective(Integer.parseInt(getInput()), Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),
-                Integer.parseInt(getInput()), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Double.parseDouble(getInput()), Boolean.parseBoolean(getInput()));
+
+        StudyObjective.Objective newObjective = new StudyObjective.Objective(
+                Integer.parseInt(getInput()),
+                Integer.parseInt(getInput()),
+                Integer.parseInt(getInput()),
+                Integer.parseInt(getInput()),
+                Integer.parseInt(getInput()),
+                Integer.parseInt(getInput()),
+                getInput(),
+                getInput(),
+                getInput(),
+                getInput(),
+                getInput(),
+                getInput(),
+                getInput(),
+                Double.parseDouble(getInput()),
+                Boolean.parseBoolean(getInput())
+        );
+        studyObjective.handleSetObjective(newObjective);
     }
+
 
     private StudyObjective getStudyObjectiveInfo(){
         handleMethodHeader("(Study Objective Creation)");
