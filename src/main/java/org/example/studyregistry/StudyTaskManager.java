@@ -27,17 +27,45 @@ public class StudyTaskManager {
         return weekResponsibilities;
     }
 
-    public void setUpWeek(String planName, String objectiveTitle, String objectiveDescription, String materialTopic,
-                          String materialFormat, String goal, String reminderTitle, String reminderDescription,
-                          String mainTaskTitle, String mainHabit, String mainCardStudy){
+    public record WeekSetup(
+            String planName,
+            String objectiveTitle,
+            String objectiveDescription,
+            String materialTopic,
+            String materialFormat,
+            String goal,
+            String reminderTitle,
+            String reminderDescription,
+            String mainTaskTitle,
+            String mainHabit,
+            String mainCardStudy
+    ) {}
+
+    public void setUpWeek(WeekSetup weekSetup) {
         this.weekResponsibilities = new ArrayList<>();
-        this.weekResponsibilities.addAll(Arrays.asList(planName, objectiveTitle, objectiveDescription, materialTopic, materialFormat, goal, reminderTitle, reminderDescription, mainTaskTitle, mainHabit, mainCardStudy));
+        this.weekResponsibilities.addAll(Arrays.asList(
+                weekSetup.planName,
+                weekSetup.objectiveTitle,
+                weekSetup.objectiveDescription,
+                weekSetup.materialTopic,
+                weekSetup.materialFormat,
+                weekSetup.goal,
+                weekSetup.reminderTitle,
+                weekSetup.reminderDescription,
+                weekSetup.mainTaskTitle,
+                weekSetup.mainHabit,
+                weekSetup.mainCardStudy
+        ));
     }
 
+    // HandleSetUpWeek method remains largely unchanged
     public void handleSetUpWeek(List<String> stringProperties){
-        setUpWeek(stringProperties.get(0), stringProperties.get(1), stringProperties.get(2), stringProperties.get(3),
-                stringProperties.get(4), stringProperties.get(5), stringProperties.get(6), stringProperties.get(7),
-                stringProperties.get(8), stringProperties.get(9), stringProperties.get(10));
+        setUpWeek(new WeekSetup(
+                stringProperties.get(0), stringProperties.get(1), stringProperties.get(2),
+                stringProperties.get(3), stringProperties.get(4), stringProperties.get(5),
+                stringProperties.get(6), stringProperties.get(7), stringProperties.get(8),
+                stringProperties.get(9), stringProperties.get(10)
+        ));
     }
 
 

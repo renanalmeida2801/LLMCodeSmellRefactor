@@ -110,14 +110,29 @@ public class StudyPlannerController {
         return LocalDateTime.of(year, month, day, hour, minute, seconds);
     }
 
-    private void handleAddHabit(){
+    private void handleAddHabit() {
         System.out.println("Separate the input with enter, type: name, motivation, daily Minutes Dedication, daily Hours Dedication, year, month, day, hour, minute, seconds");
+
+        // Collect input for the habit
         String name = Objects.requireNonNull(this.getInput().trim());
         String motivation = Objects.requireNonNull(this.getInput().trim());
         Integer dailyMinutesDedication = Integer.parseInt(Objects.requireNonNull(this.getInput().trim()));
         Integer dailyHoursDedication = Integer.parseInt(Objects.requireNonNull(this.getInput().trim()));
-        LocalDateTime start =  handleGetStartDate();
-        habitTracker.addHabit(name, motivation, dailyMinutesDedication, dailyHoursDedication, start.getYear(), start.getMonthValue(), start.getDayOfMonth(), start.getHour(), start.getMinute(), start.getSecond(), false);
+
+        System.out.println("Enter start date: year, month, day, hour, minute, second (each separated by enter)");
+        LocalDateTime startDate = handleGetStartDate();
+
+        // Use HabitBuilder to create the habit
+        HabitTracker.HabitBuilder builder = new HabitTracker.HabitBuilder()
+                .setName(name)
+                .setMotivation(motivation)
+                .setDailyMinutesDedication(dailyMinutesDedication)
+                .setDailyHoursDedication(dailyHoursDedication)
+                .setStartDate(startDate)
+                .setIsConcluded(false);
+
+        // Pass the builder to HabitTracker to add the habit
+        habitTracker.addHabit(builder);
     }
 
     private String viewToDoHeader(){

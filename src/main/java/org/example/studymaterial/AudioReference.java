@@ -6,9 +6,11 @@ public class AudioReference extends Reference {
     public enum AudioQuality {
         LOW, MEDIUM, HIGH, VERY_HIGH;
     }
+
     private AudioQuality audioQuality;
 
-    public AudioReference(AudioQuality quality){
+    public AudioReference(AudioQuality quality) {
+        super();
         this.audioQuality = quality;
     }
 
@@ -16,7 +18,7 @@ public class AudioReference extends Reference {
         return audioQuality;
     }
 
-    public static AudioQuality audioQualityAdapter(String quality){
+    public static AudioQuality audioQualityAdapter(String quality) {
         return switch (quality.toLowerCase()) {
             case "low" -> AudioQuality.LOW;
             case "medium" -> AudioQuality.MEDIUM;
@@ -30,30 +32,73 @@ public class AudioReference extends Reference {
         this.audioQuality = audioQuality;
     }
 
-     public void editAudio(AudioQuality audioQuality, boolean isDownloadable, String title, String description, String link, String accessRights, String license, String language, int rating,  int viewCount, int shareCount){
-        editBasic(title, description, link);
-        this.setAccessRights(accessRights);
-        this.setLicense(license);
+    // Refactored editAudio method with fewer parameters
+    public void editAudio(AudioQuality audioQuality, boolean isDownloadable, AudioReferenceData data) {
         this.setAudioQuality(audioQuality);
-        editVideoAttributes(rating, language, viewCount, shareCount, isDownloadable);
-     }
+        this.setDownloadable(isDownloadable);
+        setTitleAndDescription(data.title(), data.description());
+        setLinkAndAccessRights(data.link(), data.accessRights());
+        setMediaDetails(data.license(), data.language(), data.rating(), data.viewCount(), data.shareCount());
+    }
 
-     public void editAudioAdapter(List<String> properties, List<Integer> intProperties, AudioQuality audioQuality, boolean isDownloadable){
-         this.editAudio(audioQuality, isDownloadable, properties.get(0), properties.get(1), properties.get(2), properties.get(3), properties.get(4), properties.get(5), intProperties.get(0),  intProperties.get(1), intProperties.get(2));
-     }
+    private void setTitleAndDescription(String title, String description) {
+        this.setTitle(title);
+        this.setDescription(description);
+    }
 
-     private void editVideoAttributes(int rating, String language, int viewCount, int shareCount,boolean isDownloadable){
-         this.setRating(rating);
-         this.setShareCount(shareCount);
-         this.setViewCount(viewCount);
-         this.setDownloadable(isDownloadable);
-         this.setLanguage(language);
-     }
+    private void setLinkAndAccessRights(String link, String accessRights) {
+        this.setLink(link);
+        this.setAccessRights(accessRights);
+    }
 
-     public void editBasic(String title, String description, String link){
-         this.setTitle(title);
-         this.setDescription(description);
-         this.setLink(link);
-     }
+    private void setMediaDetails(String license, String language, int rating, int viewCount, int shareCount) {
+        this.setLicense(license);
+        this.setLanguage(language);
+        this.setRating(rating);
+        this.setViewCount(viewCount);
+        this.setShareCount(shareCount);
+    }
 
+    public record AudioReferenceData(
+            String title,
+            String description,
+            String link,
+            String accessRights,
+            String license,
+            String language,
+            int rating,
+            int viewCount,
+            int shareCount
+    ) {
+    }
+
+    public void editAudioAdapter(List<String> properties, List<Integer> intProperties, AudioQuality audioQuality, boolean isDownloadable) {
+        AudioReferenceData data = new AudioReferenceData(
+                properties.get(0), // title
+                properties.get(1), // description
+                properties.get(2), // link
+                properties.get(3), // accessRights
+                properties.get(4), // license
+                properties.get(5), // language
+                intProperties.get(0), // rating
+                intProperties.get(1), // viewCount
+                intProperties.get(2) // shareCount
+        );
+        this.editAudio(audioQuality, isDownloadable, data);
+    }
+
+    // Removed editVideoAttributes method and replaced with setBasicAttributes
+
+    private void setBasicAttributes(int rating, String language, int viewCount, int shareCount) {
+        this.setRating(rating);
+        this.setShareCount(shareCount);
+        this.setViewCount(viewCount);
+        this.setLanguage(language);
+    }
+
+    public void editBasic(String title, String description, String link){
+        this.setTitle(title);
+        this.setDescription(description);
+        this.setLink(link);
+    }
 }

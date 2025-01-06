@@ -29,4 +29,9 @@ public class Card {
         setQuestion(question);
         setAnswer(answer);
     }
+
+    // This method is moved to the Card class as it operates on the card's data
+    public String format() {
+        return "[id: ] " + "Question: " + question + " Answer: " + answer;
+    }
 }
