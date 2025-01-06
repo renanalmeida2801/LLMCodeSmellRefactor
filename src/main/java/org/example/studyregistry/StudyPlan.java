@@ -53,16 +53,23 @@ public class StudyPlan extends Registry{
             LocalDateTime endDate
     ) {}
 
-    public void assignSteps(String firstStep, String resetStudyMechanism, String consistentStep, String seasonalSteps,
-
-                            String basicSteps, String mainObjectiveTitle, String mainGoalTitle, String mainMaterialTopic,
-
-                            String mainTask, Integer numberOfSteps, boolean isImportant, LocalDateTime startDate, LocalDateTime endDate) {
-
+    public void assignSteps(StudyPlanDetails details) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-
-        this.steps = new ArrayList<>(Arrays.asList(firstStep, resetStudyMechanism, consistentStep, seasonalSteps, basicSteps, "Number of steps: " + numberOfSteps.toString(), "Is it important to you? " + isImportant, startDate.format(formatter), endDate.format(formatter), mainObjectiveTitle, mainGoalTitle, mainMaterialTopic, mainTask));
-
+        this.steps = new ArrayList<>(Arrays.asList(
+                details.firstStep,
+                details.resetStudyMechanism,
+                details.consistentStep,
+                details.seasonalSteps,
+                details.basicSteps,
+                "Number of steps: " + details.numberOfSteps.toString(),
+                "Is it important to you? " + details.isImportant,
+                details.startDate.format(formatter),
+                details.endDate.format(formatter),
+                details.mainObjectiveTitle,
+                details.mainGoalTitle,
+                details.mainMaterialTopic,
+                details.mainTask
+        ));
     }
 
     public void handleAssignSteps(List<String> stringProperties, Integer numberOfSteps,
