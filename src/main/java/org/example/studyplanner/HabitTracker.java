@@ -121,6 +121,21 @@ public class HabitTracker {
         return habits;
     }
 
+    public String habitDateViewAll() {
+        StringBuilder response = new StringBuilder();
+        for (Habit habit : habits) {
+            response.append("[ Habit: ")
+                    .append(habit.getName())
+                    .append(". Records: ");
+            List<LocalDateTime> records = getHabitRecords(habit.getId());
+            for (LocalDateTime record : records) {
+                response.append(formatHabitDate(record)).append(", ");
+            }
+            response.append("]");
+        }
+        return response.toString();
+    }
+
     // Inner class: HabitBuilder
     public static class HabitBuilder {
         private String name;

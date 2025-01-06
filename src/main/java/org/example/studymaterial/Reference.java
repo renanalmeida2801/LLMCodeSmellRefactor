@@ -109,11 +109,6 @@ public abstract class Reference {
         return getRating() >= 4; // Customize rating threshold as needed
     }
 
-    public double getPopularityRatio() {
-        int totalActions = statistics.getViewCount() + statistics.getDownloadCount() + statistics.getShareCount();
-        return totalActions > 0 ? (double) totalActions / 100 : 0.0; // Adjust divisor as needed
-    }
-
     // Methods preserved for compatibility with AudioReference
     public int getViewCount() {
         return statistics.getViewCount();
