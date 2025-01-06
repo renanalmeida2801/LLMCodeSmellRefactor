@@ -34,6 +34,23 @@ public class SearchLog {
         numUsages++;
     }
 
+    public void logSearch(String query, List<String> results) {
+        if (isLocked) {
+            throw new IllegalStateException("SearchLog is locked.");
+        }
+
+        searchHistory.add(query);
+        searchCount.put(query, searchCount.getOrDefault(query, 0) + 1);
+        numUsages++;
+        results.add("\nLogged in: " + logName);
+    }
+
+    public void addSearchHistory(String query) {
+        // Maintain compatibility with legacy tests
+        searchHistory.add(query);
+        searchCount.put(query, searchCount.getOrDefault(query, 0) + 1);
+    }
+
     public List<String> getSearchHistory() {
         return new ArrayList<>(searchHistory); // Return a copy to prevent modifications
     }
@@ -60,10 +77,6 @@ public class SearchLog {
 
     public String getLogName() {
         return logName;
-    }
-
-    public void addSearchHistory(String query) {
-        searchHistory.add(query);
     }
 
     public void setNumUsages(int numUsages) {
