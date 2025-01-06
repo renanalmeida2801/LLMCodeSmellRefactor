@@ -7,10 +7,7 @@ import org.example.studymaterial.VideoReference;
 import org.example.studyregistry.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.example.controllers.MainController.getInput;
 import static org.example.controllers.MainController.validateInput;
@@ -90,9 +87,19 @@ public class StudyRegistryController {
                 "String mainTask, @NotNull Integer numberOfSteps, boolean isImportant. " +
                 "The Date to start is today, the date to end is x days from now, type the quantity of days\n");
         LocalDateTime createdAT = LocalDateTime.now();
-        studyPlan.assignSteps(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Integer.parseInt(getInput()), Boolean.parseBoolean(getInput()), createdAT, createdAT.plusDays(Long.parseLong(getInput())));
+        StudyPlan.StudyPlanDetails details = new StudyPlan.StudyPlanDetails(
+                getInput(),getInput(),getInput(),getInput(),getInput(),getInput(),getInput(),getInput(),getInput(),Integer.parseInt(getInput()),Boolean.parseBoolean(getInput()),createdAT,createdAT.plusDays(Long.parseLong(getInput()))
+        );
+
+        studyPlan.assignSteps(details);
     }
+
+//    // Helper method to get user input with a prompt
+//    private String getUserInput(String prompt) {
+//        System.out.print(prompt);
+//        Scanner scanner = new Scanner(System.in);
+//        return scanner.nextLine();
+//    }
 
     private StudyGoal getStudyGoalInfo(){
         handleMethodHeader("(Study Goal Creation)");
